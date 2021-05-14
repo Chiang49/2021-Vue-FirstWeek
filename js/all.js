@@ -75,20 +75,20 @@ function productStatus(productIndex){
 // 狀態變化
 function statusChange(productIndex){
 
-    const isStart = document.querySelectorAll('#isStart');
-    const switchText = document.querySelectorAll('#switchControl span');
+    const toggle = document.querySelectorAll('div[data-toggle="isStart"]');
+    const switchText = document.querySelectorAll('div[data-control="switchControl"] span');
 
     if(!productData[productIndex].isStart){
 
         switchText[productIndex].textContent = "未啟用";
-        isStart[productIndex].classList.add('close');
-        isStart[productIndex].classList.remove('open');
+        toggle[productIndex].classList.add('close');
+        toggle[productIndex].classList.remove('open');
 
     }else{
 
         switchText[productIndex].textContent = "啟用";
-        isStart[productIndex].classList.add('open');
-        isStart[productIndex].classList.remove('close');
+        toggle[productIndex].classList.add('open');
+        toggle[productIndex].classList.remove('close');
     }
 
 }
@@ -98,11 +98,11 @@ productList.addEventListener('click',(e) => {
     
     let productIndex = e.target.getAttribute('data-ID');
     //單筆刪除
-    if(e.target.getAttribute('id') === 'deleteThis'){
+    if(e.target.getAttribute('data-Btn') === 'deleteThis'){
 
         deleteThisData(productIndex);
 
-    }else if(e.target.getAttribute('id') === 'isStart'){
+    }else if(e.target.getAttribute('data-toggle') === 'isStart'){
         
         productStatus(productIndex);
 
@@ -125,14 +125,14 @@ function renderProductList(){
                             <td>${item.originalPrice}</td>
                             <td>${item.price}</td>
                             <td class="position-relative">
-                                <div class="switch-group" id="switchControl">
-                                    <div class="switch" id="isStart" data-ID="${key}">
+                                <div class="switch-group"  data-control="switchControl">
+                                    <div class="switch" data-toggle="isStart" data-ID="${key}">
                                         <div class="switch-circle"></div>
                                     </div>
                                     <span>未啟用</span>
                                 </div>
                             </td>
-                            <td><button type="button" class="deleteBtn" id="deleteThis" data-ID="${key}">刪除</button></td>
+                            <td><button type="button" class="deleteBtn" data-Btn="deleteThis" data-ID="${key}">刪除</button></td>
                         </tr>`;
         })
     }
